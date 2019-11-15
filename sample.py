@@ -1,3 +1,4 @@
+import time
 import nfc
 
 def on_connect(tag):
@@ -15,7 +16,8 @@ def on_connect(tag):
 
 def main():
     with nfc.ContactlessFrontend('usb') as clf:
-        clf.connect(rdwr={'on-connect': on_connect})
+        while clf.connect(rdwr={'on-connect': on_connect}):
+            time.sleep(2)
 
 if __name__ == '__main__':
     main()
