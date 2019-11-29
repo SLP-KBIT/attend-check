@@ -2,11 +2,12 @@ import time
 import nfc
 
 def on_connect(tag):
-    idm, pmm = tag.polling(system_code=0xfe00)
-    tag.idm, tag.pmm, tag.sys = idm, pmm, 0xfe00
+    SYSTEM_CODE = 0xfe00
+    idm, pmm = tag.polling(SYSTEM_CODE)
+    tag.idm, tag.pmm, tag.sys = idm, pmm, SYSTEM_CODE
 
-    service_code = 0x1a8b
-    sc = nfc.tag.tt3.ServiceCode(service_code >> 6, service_code & 0x3f)
+    SERVICE_CODE = 0x1a8b
+    sc = nfc.tag.tt3.ServiceCode(SERVICE_CODE >> 6, SERVICE_CODE & 0x3f)
     bc1 = nfc.tag.tt3.BlockCode(0, service=0) # student number
     data = tag.read_without_encryption([sc], [bc1])
 
